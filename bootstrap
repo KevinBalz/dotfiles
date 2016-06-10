@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+TEMP=$(mktemp -d)
+SCRDIR=$(cd "$(dirname "$0")" && pwd)
+RBYDIR=$SCRDIR/.ruby
+
+mkdir -p $RBYDIR #Create Target
+
+
+cd $TEMP
+
+# Download and unzip
+curl -o ruby.tar.gz https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
+tar -xvf ruby.tar.gz
+
+# Make and Install
+cd ruby-2.3.1
+./configure -prefix=$RBYDIR
+make
+make install
+
+# Cleanup
+rm -rf $TEMP
+
+PATH=$RBYDIR/bin:$PATH
+
+cd $SCRDIR
+./setup
