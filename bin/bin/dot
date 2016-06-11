@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DOTFILES=${DOTFILES-~/dotfiles}
+
+PATH=$DOTFILES/.ruby/bin:$PATH
+
+cd $DOTFILES
+./setup

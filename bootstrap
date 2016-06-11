@@ -22,7 +22,5 @@ make install
 # Cleanup
 rm -rf $TEMP
 
-PATH=$RBYDIR/bin:$PATH
-
-cd $SCRDIR
-./setup
+# Execute dot
+$SCRDIR/bin/bin/dot
