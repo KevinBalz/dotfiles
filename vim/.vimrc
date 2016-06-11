@@ -10,6 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Themes
 Plugin 'mhartington/oceanic-next'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
@@ -23,8 +24,17 @@ Plugin 'reedes/vim-thematic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
+" Git Helper
+Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
+" Rails
+Plugin 'tpope/vim-rails'
+
+" Syntastic
+Plugin 'scrooloose/syntastic'
+
+" Languages
 Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
@@ -42,7 +52,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-set relativenumber number
+set number
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='oceanicnext'
@@ -57,11 +67,36 @@ elseif $TERM_PROGRAM=='iTerm.app'
 endif
 syntax on
 
+" Default tab
+set ts=4 sts=4 sw=4 expandtab
+
 set guioptions-=T
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+filetype on
+
+if has("autocmd")
+
+    " Automatically open NERDTree on Startup
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+    " Indentation overides
+    autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType js set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType lua set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType rust set ts=4 sts=4 sw=4 expandtab
+endif
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
