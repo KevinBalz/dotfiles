@@ -1,3 +1,5 @@
+# Aliases
+alias catc="pygmentize -g"
 
 # source common environment settings
 source ~/.env

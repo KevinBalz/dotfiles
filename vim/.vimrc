@@ -36,6 +36,7 @@ Plugin 'scrooloose/syntastic'
 
 " Languages
 Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -89,7 +90,12 @@ if has("autocmd")
     autocmd FileType js set ts=2 sts=2 sw=2 expandtab
     autocmd FileType lua set ts=2 sts=2 sw=2 expandtab
     autocmd FileType rust set ts=4 sts=4 sw=4 expandtab
+
+    " Filetype extensions
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 endif
+
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'c', 'ruby', 'yaml']
 
 " Syntastic
 set statusline+=%#warningmsg#
