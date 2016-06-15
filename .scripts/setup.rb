@@ -1,11 +1,10 @@
-#!/usr/bin/env ruby
 
 class Dotsetup
   attr_accessor :before_func
   attr_accessor :after_func
 
   def initialize
-    @before_func = nil 
+    @before_func = nil
     @after_func = nil
   end
 
@@ -40,7 +39,7 @@ def setup_dir(dir)
 end
 
 
-Dir.foreach(File.dirname(__FILE__)) do |item|
+Dir.foreach(Dir.pwd) do |item|
   next if item.start_with?('.')
   next if File.file?(item)
 

@@ -1,26 +1,19 @@
 #!/usr/bin/env bash
 
-TEMP=$(mktemp -d)
 SCRDIR=$(cd "$(dirname "$0")" && pwd)
-RBYDIR=$SCRDIR/.ruby
 
-mkdir -p $RBYDIR #Create Target
+if ! command -v "rvm" >/dev/null 2>&1; then
+    # Install rvm
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    \curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
+    source $HOME/.rvm/scripts/rvm
+fi
 
 
-cd $TEMP
+rvm requirements
+rvm install 2.3
 
-# Download and unzip
-curl -o ruby.tar.gz https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
-tar -xvf ruby.tar.gz
-
-# Make and Install
-cd ruby-2.3.1
-./configure -prefix=$RBYDIR
-make
-make install
-
-# Cleanup
-rm -rf $TEMP
+export DOTFILES=$SCRDIR
 
 # Execute dot
 $SCRDIR/bin/bin/dot

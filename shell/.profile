@@ -5,5 +5,14 @@ alias catc="pygmentize -g"
 source ~/.env
 
 # Source machine specific environment in
-test -f ~/.environment && source ~/.environment
+test -f ~/.env.local && source ~/.env.local
+
+if ! [ -n "${DOTFILES+set}" ] ; then
+  DOTFILES=~/dotfiles
+fi
+
+# Include rvm if existent
+if [ -f "$HOME/.rvm/scripts/rvm" ] ; then
+  source "$HOME/.rvm/scripts/rvm"
+fi
 
