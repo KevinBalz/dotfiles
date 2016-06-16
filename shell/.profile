@@ -8,7 +8,7 @@ source ~/.env
 test -f ~/.env.local && source ~/.env.local
 
 if ! [ -n "${DOTFILES+set}" ] ; then
-  DOTFILES=~/dotfiles
+  export DOTFILES=~/dotfiles
 fi
 
 # Include rvm if existent
