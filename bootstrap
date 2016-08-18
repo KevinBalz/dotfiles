@@ -20,9 +20,9 @@ make
 make install
 
 # Cleanup
+cd
 rm -rf $TEMP
 
 export DOTFILES=$SCRDIR
-export PATH=$PATH:$DOTFILES/bin/bin
 
-dot
+$DOTFILES/bin/bin/dot setup
