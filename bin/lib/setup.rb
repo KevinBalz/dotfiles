@@ -1,3 +1,6 @@
+require_relative 'autogem'
+
+require_gem 'paint'
 
 class Dotsetup
   attr_accessor :before_func
@@ -35,7 +38,7 @@ def setup_dir(dir)
   dotsetup = File.join(dir,'dotsetup.rb')
   dots = nil
   if File.exists?(dotsetup)
-    puts "Evaluating: #{dotsetup}"
+    puts "#{Paint["Evaluating:", :cyan]} #{Paint[dotsetup, :yellow]}"
     dots = Dotsetup.load(dotsetup)
   end
   dots&.before_func&.call
@@ -52,6 +55,6 @@ Dir.foreach(Dir.pwd) do |item|
   next if item.start_with?('.')
   next if File.file?(item)
 
-  puts "Setting up: #{item}"
+  puts "#{Paint["Setting up:", :blue]} #{Paint[item, :yellow]}"
   setup_dir(item)
 end
