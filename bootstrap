@@ -9,15 +9,16 @@ mkdir -p $RBYDIR #Create Target
 
 cd $TEMP
 
-# Download and unzip
-curl -o ruby.tar.gz https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
-tar -xvf ruby.tar.gz
+# Download and unzip ruby-install
+wget -O ruby-install-0.6.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
+tar -xzvf ruby-install-0.6.0.tar.gz
 
-# Make and Install
-cd ruby-2.3.1
-./configure -prefix=$RBYDIR --disable-install-doc
-make
-make install
+# Make ruby install
+cd ruby-install-0.6.0/
+make install PREFIX?=../ruby-install
+
+# Install ruby via ruby-install
+../ruby-install/bin/ruby-install --install-dir $RBYDIR ruby 2.3.1 -- --disable-install-doc
 
 # Cleanup
 cd
