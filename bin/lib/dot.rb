@@ -14,7 +14,7 @@ class Dot < Thor
 
   desc "ruby ARGUMENTS", "runs the dot bundled ruby"
   def ruby(*args)
-     system "#{Gem.ruby}", *args
+     exec "#{Gem.ruby}", *args
   end
 end
 
