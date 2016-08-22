@@ -43,12 +43,66 @@ def setup_dir(dir)
   end
   dots&.before_func&.call
   if dots == nil or dots.link
-    puts "stowing ..."
-    system("stow -Rv --ignore='^dotsetup.rb' #{dir}")
+    link_dir(dir)
   else
     puts "skip linking"
   end
   dots&.after_func&.call
+end
+
+def link_dir(dir,target_dir=Dir.home)
+  Dir.foreach(dir) do |file|
+    next if File.directory?(file)
+    next if file == "dotsetup.rb"
+
+    full_file = File.expand_path(File.join(dir,file))
+    link_target = File.join(target_dir, file)
+
+    link_file(full_file,link_target)
+  end
+end
+
+def link_file(file,target)
+  if not File.exist?(target) and not File.symlink?(target)
+    File.symlink(file,target)
+    puts "#{Paint[file, :cyan]} => #{Paint[ target, :yellow]} linked"
+  elsif File.symlink?(target)
+    linkt = File.readlink(target)
+    if linkt == file then
+      puts "#{Paint[file, :cyan]} => #{Paint[ target, :yellow]} already linked"
+    else
+      puts "There is already a symlink '#{target}' pointing to '#{linkt}'"
+      print "Do you want to remove the old link? (y/n): "
+      if "y" == STDIN.gets.chomp.downcase
+        File.delete(target)
+        link_file(file,target)
+      else
+        raise "Old symlink blocking"
+      end
+    end
+  else
+    puts "#{Paint["File #{target} already exists!", :red]}"
+    new_name = target + ".old"
+    loop do
+      print "(O)verwrite, (S)how the file, (R)ename the file to '#{new_name}': "
+      case STDIN.gets.chomp.downcase
+      when "o"
+        print "Are you sure? This will delete the file (y/n): "
+        if "y" == STDIN.gets.chomp.downcase
+          File.delete(target)
+          link_file(file,target)
+          break
+        end
+      when "s"
+        puts File.new(target, "r").gets
+      when "r"
+        File.rename(target,new_name)
+        puts "renamed #{target} to #{new_name}"
+        link_file(file,target)
+        break
+      end
+    end
+  end
 end
 
 Dir.foreach(Dir.pwd) do |item|
