@@ -33,4 +33,4 @@ $DOTFILES/.ruby/bin/gem install bundler
 # Make dot commando available
 export PATH=$PATH:$DOTFILES/bin/bin
 
-dot setup
+dotfiles setup
