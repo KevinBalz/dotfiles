@@ -40,6 +40,8 @@ Plugin 'cespare/vim-toml'
 Plugin 'jceb/vim-orgmode'
 Plugin 'vimwiki/vimwiki'
 Plugin 'mrtazz/simplenote.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,11 +88,13 @@ if has("autocmd")
 
     " Automatically open NERDTree on Startup
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd VimEnter * if argc() == 0 | NERDTree | endif
 
     " Indentation overides
     autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
-    autocmd FileType js set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType javascript.jsx set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType html set ts=2 sts=2 sw=2 expandtab
     autocmd FileType lua set ts=2 sts=2 sw=2 expandtab
     autocmd FileType rust set ts=4 sts=4 sw=4 expandtab
     autocmd FileType eruby set ts=2 sts=2 sw=2 expandtab
