@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec $DOTFILES/.ruby/bin/ruby $1 "${@:2}"

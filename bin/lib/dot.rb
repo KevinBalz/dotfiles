@@ -1,6 +1,12 @@
-require_relative 'autogem'
+#!/usr/bin/env dotruby
 
-require_gem 'thor'
+require 'bundler/inline'
+
+gemfile do
+ source 'https://rubygems.org'
+ gem 'thor'
+end
+
 class Dot < Thor
   $PROGRAM_NAME = "dot"
 
@@ -12,10 +18,6 @@ class Dot < Thor
     load File.expand_path("bin/lib/setup.rb"), true
   end
 
-  desc "ruby ARGUMENTS", "runs the dot bundled ruby"
-  def ruby(*args)
-     exec "#{Gem.ruby}", *args
-  end
 end
 
 Dot.start(ARGV)

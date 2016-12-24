@@ -24,6 +24,13 @@ make install PREFIX?=../ruby-install
 cd
 rm -rf $TEMP
 
+# Set DOTFILES for rest of setup
 export DOTFILES=$SCRDIR
 
-$DOTFILES/bin/bin/dot setup
+# Install bundler
+$DOTFILES/.ruby/bin/gem install bundler
+
+# Make dot commando available
+export PATH=$PATH:$DOTFILES/bin/bin
+
+dot setup
