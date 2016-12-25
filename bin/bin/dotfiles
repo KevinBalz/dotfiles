@@ -1,11 +1,7 @@
 #!/usr/bin/env dotruby
 
-require 'bundler/inline'
-
-gemfile do
- source 'https://rubygems.org'
- gem 'thor'
-end
+require 'autogem'
+require_gem 'thor'
 
 class Dot < Thor
   $PROGRAM_NAME = "dot"

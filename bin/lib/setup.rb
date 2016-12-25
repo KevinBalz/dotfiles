@@ -1,9 +1,5 @@
-require 'bundler/inline'
-
-gemfile do
- source 'https://rubygems.org'
- gem 'paint'
-end
+require 'autogem'
+require_gem 'paint'
 
 class Dotsetup
   attr_accessor :before_func

@@ -27,9 +27,6 @@ rm -rf $TEMP
 # Set DOTFILES for rest of setup
 export DOTFILES=$SCRDIR
 
-# Install bundler
-$DOTFILES/.ruby/bin/gem install bundler
-
 # Make dot commando available
 export PATH=$PATH:$DOTFILES/bin/bin
 
