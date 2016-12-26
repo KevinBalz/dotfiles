@@ -90,7 +90,6 @@ module Setup
       puts "#{Paint["File #{target} already exists!", :red]}"
       new_name = target + ".old"
       loop do
-        option
         if self.interactive
           option = "r"
         else
