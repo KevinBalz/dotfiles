@@ -4,14 +4,16 @@ require 'autogem'
 require_gem 'thor'
 
 class Dot < Thor
-  $PROGRAM_NAME = "dot"
 
   desc "setup", "setup all dotfiles"
+  method_option :interactive, :type => :boolean, :default => true, :desc => "Whether the setup asks for input or not"
   def setup()
     # Make sure to be in the dotfiles directory
     Dir.chdir ENV['DOTFILES']
     # Run Setup Script
-    load File.expand_path("bin/lib/setup.rb"), true
+    require 'setup'
+    Setup.interactive = options[:interactive]
+    Setup.run()
   end
 
 end

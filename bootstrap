@@ -1,28 +1,36 @@
 #!/usr/bin/env bash
 
-TEMP=$(mktemp -d)
 SCRDIR=$(cd "$(dirname "$0")" && pwd)
 RBYDIR=$SCRDIR/.ruby
 
-mkdir -p $RBYDIR #Create Target
+function install_ruby {
+  TEMP=$(mktemp -d)
+
+  mkdir -p $RBYDIR #Create Target
 
 
-cd $TEMP
+  cd $TEMP
 
-# Download and unzip ruby-install
-wget -O ruby-install-0.6.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
-tar -xzvf ruby-install-0.6.0.tar.gz
+  # Download and unzip ruby-install
+  wget -O ruby-install-0.6.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
+  tar -xzvf ruby-install-0.6.0.tar.gz
 
-# Make ruby install
-cd ruby-install-0.6.0/
-make install PREFIX?=../ruby-install
+  # Make ruby install
+  cd ruby-install-0.6.0/
+  make install PREFIX?=../ruby-install
 
-# Install ruby via ruby-install
-../ruby-install/bin/ruby-install --install-dir $RBYDIR ruby 2.3.1 -- --disable-install-doc
+  # Install ruby via ruby-install
+  ../ruby-install/bin/ruby-install --install-dir $RBYDIR ruby 2.3.1 -- --disable-install-doc
 
-# Cleanup
-cd
-rm -rf $TEMP
+  # Cleanup
+  cd
+  rm -rf $TEMP
+}
+
+# Install ruby if it doesnt exist TODO: check if ruby in $RBYDIR is working
+if [ ! -d "$RBYDIR" ]; then
+  install_ruby
+fi
 
 # Set DOTFILES for rest of setup
 export DOTFILES=$SCRDIR
@@ -30,4 +38,10 @@ export DOTFILES=$SCRDIR
 # Make dot commando available
 export PATH=$PATH:$DOTFILES/bin/bin
 
-dotfiles setup
+if [ $# -eq 0 ]; then
+  DOTARGS='setup'
+else
+  DOTARGS="$@"
+fi
+
+dotfiles $DOTARGS
