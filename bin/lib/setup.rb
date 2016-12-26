@@ -90,7 +90,7 @@ module Setup
       puts "#{Paint["File #{target} already exists!", :red]}"
       new_name = target + ".old"
       loop do
-        if self.interactive
+        if !self.interactive
           option = "r"
         else
           print "(O)verwrite, (S)how the file, (R)ename the file to '#{new_name}': "
