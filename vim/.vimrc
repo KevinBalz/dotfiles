@@ -31,17 +31,14 @@ Plugin 'airblade/vim-gitgutter'
 " Rails
 Plugin 'tpope/vim-rails'
 
-" Syntastic
-Plugin 'scrooloose/syntastic'
-
 " Languages
 Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'jceb/vim-orgmode'
 Plugin 'vimwiki/vimwiki'
-Plugin 'mrtazz/simplenote.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'tikhomirov/vim-glsl'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,6 +69,8 @@ elseif $TERM_PROGRAM=='iTerm.app'
     colorscheme OceanicNext
 endif
 syntax on
+
+set noswapfile "No backup files
 
 " Default tab
 set ts=4 sts=4 sw=4 expandtab
@@ -104,13 +103,3 @@ if has("autocmd")
 endif
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'c', 'ruby', 'yaml']
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
