@@ -3,7 +3,7 @@
 
 after_link do
   unless File.exists?(File.join(Dir.home, ".vim/bundle/Vundle.vim"))
-    system('git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim')
+    system("git clone https://github.com/VundleVim/Vundle.vim.git #{Dir.home}/.vim/bundle/Vundle.vim")
   end
   system("vim +PluginInstall +qall")
 end
